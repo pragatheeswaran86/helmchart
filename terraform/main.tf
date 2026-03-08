@@ -1,3 +1,12 @@
+# Create a subnet in us-central1 for the GKE cluster
+resource "google_compute_subnetwork" "gke_subnet" {
+  name          = "gke-subnet-us-central1"
+  ip_cidr_range = "10.100.0.0/20"
+  region        = var.region
+  network       = "default"
+  project       = var.project_id
+}
+
 # GKE Cluster Configuration
 resource "google_container_cluster" "primary" {
   name     = var.cluster_name
@@ -11,7 +20,7 @@ resource "google_container_cluster" "primary" {
 
   # Network configuration - using default VPC
   network    = "default"
-  subnetwork = "default"
+  subnetwork = google_compute_subnetwork.gke_subnet.name
 
   # Enable Workload Identity (best practice)
   # to enable Workload Identity for a Google Kubernetes Engine (GKE) cluster or node pool
