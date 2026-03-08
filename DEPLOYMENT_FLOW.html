@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DEPLOYMENT_FLOW.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="%F0%9F%93%8B-deployment-flow-explanation">📋 Deployment Flow Explanation</h1>
+<p>This document explains the complete deployment flow from Terraform to Kubernetes.</p>
+<h2 id="%F0%9F%94%84-complete-deployment-flow">🔄 Complete Deployment Flow</h2>
+<pre class="hljs"><code><div>┌─────────────────────────────────────────────────────────────────┐
+│                     TERRAFORM EXECUTION                          │
+└─────────────────────────────────────────────────────────────────┘
+
+1. terraform init
+   ├─ Downloads provider plugins
+   │  ├─ hashicorp/google (~&gt; 5.0)
+   │  ├─ hashicorp/kubernetes (~&gt; 2.23)
+   │  └─ hashicorp/helm (~&gt; 2.11)
+   └─ Initializes backend
+
+2. terraform plan
+   ├─ Reads configuration files
+   ├─ Queries GCP API for current state
+   └─ Generates execution plan
+
+3. terraform apply
+   │
+   ├─── PHASE 1: GCP Infrastructure (5-7 minutes)
+   │    │
+   │    ├─ Create GKE Cluster
+   │    │  ├─ Cluster control plane
+   │    │  ├─ Network configuration (default VPC)
+   │    │  ├─ Enable Workload Identity
+   │    │  └─ Configure maintenance window
+   │    │
+   │    └─ Create Node Pool
+   │       ├─ Launch e2-medium VM instances
+   │       ├─ Configure auto-scaling (1-3 nodes)
+   │       ├─ Enable auto-repair and auto-upgrade
+   │       └─ Apply security configurations
+   │
+   ├─── PHASE 2: Provider Configuration (&lt; 1 minute)
+   │    │
+   │    ├─ Kubernetes Provider
+   │    │  ├─ Fetch cluster endpoint
+   │    │  ├─ Get authentication token
+   │    │  └─ Retrieve CA certificate
+   │    │
+   │    └─ Helm Provider
+   │       ├─ Use Kubernetes credentials
+   │       └─ Initialize Helm client
+   │
+   └─── PHASE 3: Application Deployment (2-3 minutes)
+        │
+        └─ Deploy Helm Release
+           ├─ Read hello-chart/ directory
+           ├─ Process Chart.yaml
+           ├─ Load values.yaml
+           ├─ Render templates with values
+           │
+           ├─── CREATE: Deployment
+           │    ├─ Create ReplicaSet
+           │    └─ Launch 3 nginx pods
+           │       ├─ Pull nginx:1.25-alpine image
+           │       ├─ Start containers
+           │       ├─ Run liveness probes
+           │       └─ Run readiness probes
+           │
+           └─── CREATE: Service (LoadBalancer)
+                ├─ Create Service object in Kubernetes
+                ├─ Kubernetes triggers GCP LoadBalancer creation
+                ├─ GCP provisions external forwarding rule
+                ├─ Assign external IP address
+                └─ Configure backend to pods (port 80)
+
+✅ Deployment Complete!
+
+┌─────────────────────────────────────────────────────────────────┐
+│                     KUBERNETES RUNTIME                           │
+└─────────────────────────────────────────────────────────────────┘
+
+Traffic Flow:
+Internet → External IP → LoadBalancer → Service → Pod (Round-robin)
+
+Monitoring:
+├─ Kubelet runs health checks every 10s
+├─ Failed pods automatically restarted
+└─ Auto-scaling adjusts nodes based on load
+</div></code></pre>
+<h2 id="%F0%9F%94%8D-detailed-phase-breakdown">🔍 Detailed Phase Breakdown</h2>
+<h3 id="phase-1-infrastructure-creation-terraform-%E2%86%92-gcp">Phase 1: Infrastructure Creation (Terraform → GCP)</h3>
+<p><strong>What Terraform Does:</strong></p>
+<ol>
+<li>Calls GCP Container API to create cluster</li>
+<li>Waits for cluster to be &quot;RUNNING&quot;</li>
+<li>Creates node pool attached to cluster</li>
+<li>Waits for nodes to be &quot;READY&quot;</li>
+</ol>
+<p><strong>What GCP Does:</strong></p>
+<ol>
+<li>Provisions control plane VMs (managed by Google)</li>
+<li>Configures networking and firewall rules</li>
+<li>Launches worker node VMs in your project</li>
+<li>Installs Kubernetes components on nodes</li>
+<li>Joins nodes to cluster</li>
+</ol>
+<p><strong>Key Resources Created:</strong></p>
+<ul>
+<li><code>google_container_cluster.primary</code> → GKE Cluster</li>
+<li><code>google_container_node_pool.primary_nodes</code> → Node Pool</li>
+<li>Compute Engine VMs (worker nodes)</li>
+<li>Firewall rules for cluster communication</li>
+</ul>
+<h3 id="phase-2-provider-configuration-dynamic">Phase 2: Provider Configuration (Dynamic)</h3>
+<p><strong>Kubernetes Provider:</strong></p>
+<pre class="hljs"><code><div>provider &quot;kubernetes&quot; {
+  host                   = &quot;https://${google_container_cluster.primary.endpoint}&quot;
+  token                  = data.google_client_config.default.access_token
+  cluster_ca_certificate = base64decode(...)
+}
+</div></code></pre>
+<p><strong>How it Works:</strong></p>
+<ol>
+<li>Terraform reads cluster endpoint from state</li>
+<li>Uses <code>gcloud</code> credentials for authentication</li>
+<li>Establishes connection to Kubernetes API server</li>
+<li>Validates connectivity</li>
+</ol>
+<p><strong>Helm Provider:</strong></p>
+<pre class="hljs"><code><div>provider &quot;helm&quot; {
+  kubernetes {
+    host  = &quot;https://${google_container_cluster.primary.endpoint}&quot;
+    token = data.google_client_config.default.access_token
+    ...
+  }
+}
+</div></code></pre>
+<p><strong>How it Works:</strong></p>
+<ol>
+<li>Inherits Kubernetes connection details</li>
+<li>Initializes Helm client (v3 - no Tiller)</li>
+<li>Ready to deploy charts</li>
+</ol>
+<h3 id="phase-3-helm-deployment-helm-%E2%86%92-kubernetes">Phase 3: Helm Deployment (Helm → Kubernetes)</h3>
+<p><strong>Step 1: Chart Processing</strong></p>
+<pre class="hljs"><code><div>hello-chart/
+├── Chart.yaml           → Read metadata
+├── values.yaml          → Load default values
+└── templates/
+    ├── deployment.yaml  → Template rendering
+    └── service.yaml     → Template rendering
+</div></code></pre>
+<p><strong>Step 2: Template Rendering</strong></p>
+<p>Helm replaces template variables:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Template</span>
+<span class="hljs-attr">replicas:</span> <span class="hljs-string">{{</span> <span class="hljs-string">.Values.replicaCount</span> <span class="hljs-string">}}</span>
+
+<span class="hljs-comment"># Rendered</span>
+<span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+</div></code></pre>
+<p><strong>Step 3: Kubernetes Resource Creation</strong></p>
+<p>Helm applies rendered manifests:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Equivalent to:</span>
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+</div></code></pre>
+<p><strong>Step 4: Kubernetes Reconciliation</strong></p>
+<ol>
+<li>
+<p><strong>Deployment Controller:</strong></p>
+<ul>
+<li>Sees new Deployment object</li>
+<li>Creates ReplicaSet</li>
+<li>Calculates desired vs current state</li>
+<li>Instructs scheduler to launch pods</li>
+</ul>
+</li>
+<li>
+<p><strong>Scheduler:</strong></p>
+<ul>
+<li>Selects best node for each pod</li>
+<li>Considers resources, affinity rules</li>
+<li>Assigns pods to nodes</li>
+</ul>
+</li>
+<li>
+<p><strong>Kubelet (on each node):</strong></p>
+<ul>
+<li>Receives pod assignment</li>
+<li>Pulls container image</li>
+<li>Starts containers</li>
+<li>Reports status back to API server</li>
+</ul>
+</li>
+<li>
+<p><strong>Service Controller:</strong></p>
+<ul>
+<li>Sees Service type=LoadBalancer</li>
+<li>Calls GCP API to provision LoadBalancer</li>
+<li>Waits for external IP assignment</li>
+<li>Updates Service object with IP</li>
+</ul>
+</li>
+<li>
+<p><strong>LoadBalancer Provisioning (GCP):</strong></p>
+<ul>
+<li>Creates forwarding rule</li>
+<li>Allocates external IP</li>
+<li>Configures backend pool (pod IPs)</li>
+<li>Sets up health checks</li>
+</ul>
+</li>
+</ol>
+<h2 id="%F0%9F%94%97-dependency-chain">🔗 Dependency Chain</h2>
+<pre class="hljs"><code><div>GKE Cluster
+    ↓
+Node Pool (depends_on cluster)
+    ↓
+Kubernetes Provider (uses cluster endpoint)
+    ↓
+Helm Provider (uses kubernetes config)
+    ↓
+Helm Release (depends_on node_pool)
+    ↓
+Kubernetes Deployment
+    ↓
+Pods (managed by ReplicaSet)
+    ↓
+Service (targets pods via selectors)
+    ↓
+LoadBalancer (provisioned by GCP)
+    ↓
+External IP (assigned to LoadBalancer)
+</div></code></pre>
+<h2 id="%F0%9F%8E%AF-key-concepts">🎯 Key Concepts</h2>
+<h3 id="terraforms-role">Terraform's Role</h3>
+<ul>
+<li><strong>Infrastructure Layer</strong>: Creates GCP resources</li>
+<li><strong>Orchestration</strong>: Manages dependencies</li>
+<li><strong>State Management</strong>: Tracks resource status</li>
+<li><strong>Idempotent</strong>: Safe to run multiple times</li>
+</ul>
+<h3 id="helms-role">Helm's Role</h3>
+<ul>
+<li><strong>Package Manager</strong>: Bundles Kubernetes manifests</li>
+<li><strong>Templating</strong>: Dynamic configuration</li>
+<li><strong>Release Management</strong>: Versioning and rollbacks</li>
+<li><strong>Values Override</strong>: Configuration flexibility</li>
+</ul>
+<h3 id="kubernetes-role">Kubernetes' Role</h3>
+<ul>
+<li><strong>Desired State</strong>: Maintains declared configuration</li>
+<li><strong>Self-Healing</strong>: Restarts failed pods</li>
+<li><strong>Service Discovery</strong>: Routes traffic to healthy pods</li>
+<li><strong>Load Balancing</strong>: Distributes requests</li>
+</ul>
+<h2 id="%F0%9F%94%84-what-happens-after-deployment">🔄 What Happens After Deployment?</h2>
+<h3 id="continuous-operations">Continuous Operations</h3>
+<p><strong>Pod Lifecycle:</strong></p>
+<ol>
+<li>Container runs nginx web server</li>
+<li>Liveness probe checks health every 10s</li>
+<li>Readiness probe determines if pod receives traffic</li>
+<li>If unhealthy, Kubernetes restarts container</li>
+<li>If repeatedly failing, pod is replaced</li>
+</ol>
+<p><strong>Service Operation:</strong></p>
+<ol>
+<li>LoadBalancer routes traffic to Service</li>
+<li>Service distributes across all ready pods</li>
+<li>Selector <code>app=hello-app</code> matches pods</li>
+<li>Traffic distributed round-robin</li>
+<li>Failed pods automatically removed from rotation</li>
+</ol>
+<p><strong>Auto-Scaling:</strong></p>
+<ol>
+<li>If CPU &gt; 80%, node pool scales up</li>
+<li>New node joins cluster automatically</li>
+<li>Pods can be scheduled on new node</li>
+<li>If load drops, nodes scale down</li>
+<li>Pods gracefully moved before node removal</li>
+</ol>
+<h2 id="%F0%9F%9B%A0%EF%B8%8F-how-terraform-manages-this">🛠️ How Terraform Manages This</h2>
+<h3 id="state-tracking">State Tracking</h3>
+<pre class="hljs"><code><div>terraform.tfstate
+├── google_container_cluster.primary
+│   ├── id: &quot;projects/.../clusters/hello-gke-cluster&quot;
+│   ├── endpoint: &quot;35.x.x.x&quot;
+│   └── status: &quot;RUNNING&quot;
+├── google_container_node_pool.primary_nodes
+│   ├── id: &quot;projects/.../nodePools/...&quot;
+│   └── node_count: 1
+└── helm_release.hello_app
+    ├── name: &quot;hello-app&quot;
+    ├── version: &quot;1&quot;
+    └── status: &quot;deployed&quot;
+</div></code></pre>
+<h3 id="update-process-terraform-apply">Update Process (terraform apply)</h3>
+<ol>
+<li>Compare desired config vs current state</li>
+<li>Calculate minimum changes needed</li>
+<li>Apply changes in correct order</li>
+<li>Update state file</li>
+<li>Report changes made</li>
+</ol>
+<h3 id="destroy-process-terraform-destroy">Destroy Process (terraform destroy)</h3>
+<ol>
+<li>Delete Helm release first</li>
+<li>Kubernetes deletes pods and service</li>
+<li>GCP removes LoadBalancer</li>
+<li>Terraform deletes node pool</li>
+<li>Finally deletes GKE cluster</li>
+</ol>
+<h2 id="%F0%9F%93%8A-timeline-summary">📊 Timeline Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Time</th>
+<th>Action</th>
+<th>Component</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0:00</td>
+<td>terraform apply started</td>
+<td>Terraform</td>
+</tr>
+<tr>
+<td>0:30</td>
+<td>GKE cluster creation begins</td>
+<td>GCP</td>
+</tr>
+<tr>
+<td>5:00</td>
+<td>Cluster ready</td>
+<td>GKE</td>
+</tr>
+<tr>
+<td>5:30</td>
+<td>Node pool creation begins</td>
+<td>GCP</td>
+</tr>
+<tr>
+<td>7:00</td>
+<td>Nodes ready</td>
+<td>GKE</td>
+</tr>
+<tr>
+<td>7:10</td>
+<td>Kubernetes provider configured</td>
+<td>Terraform</td>
+</tr>
+<tr>
+<td>7:15</td>
+<td>Helm provider configured</td>
+<td>Terraform</td>
+</tr>
+<tr>
+<td>7:20</td>
+<td>Helm chart processing</td>
+<td>Helm</td>
+</tr>
+<tr>
+<td>7:30</td>
+<td>Deployment created</td>
+<td>Kubernetes</td>
+</tr>
+<tr>
+<td>7:45</td>
+<td>Pods starting</td>
+<td>Kubernetes</td>
+</tr>
+<tr>
+<td>8:00</td>
+<td>Service created</td>
+<td>Kubernetes</td>
+</tr>
+<tr>
+<td>8:30</td>
+<td>LoadBalancer provisioned</td>
+<td>GCP</td>
+</tr>
+<tr>
+<td>9:00</td>
+<td>External IP assigned</td>
+<td>GCP</td>
+</tr>
+<tr>
+<td>9:30</td>
+<td>Health checks passing</td>
+<td>Kubernetes</td>
+</tr>
+<tr>
+<td><strong>10:00</strong></td>
+<td><strong>✅ Application Ready</strong></td>
+<td><strong>All</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="%F0%9F%8E%93-learning-takeaways">🎓 Learning Takeaways</h2>
+<ol>
+<li><strong>Terraform manages infrastructure</strong> (GKE cluster, nodes)</li>
+<li><strong>Helm manages applications</strong> (Kubernetes resources)</li>
+<li><strong>Kubernetes manages workloads</strong> (pods, services)</li>
+<li><strong>GCP provides compute</strong> (VMs, networking, LoadBalancers)</li>
+</ol>
+<p>This separation of concerns is a <strong>DevOps best practice</strong>:</p>
+<ul>
+<li>Infrastructure changes: Modify Terraform</li>
+<li>Application changes: Modify Helm chart</li>
+<li>Runtime operations: Use kubectl</li>
+</ul>
+<hr>
+<p><strong>Next Steps:</strong> Read <a href="README.md">README.md</a> for deployment instructions!</p>
+
+</body>
+</html>

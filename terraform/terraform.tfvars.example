@@ -1,0 +1,15 @@
+# Example Terraform Variables File
+# Copy this file to terraform.tfvars and update with your values
+# cp terraform.tfvars.example terraform.tfvars
+
+# REQUIRED: Your GCP Project ID
+project_id = "your-gcp-project-id"
+
+# OPTIONAL: Override default region (default: us-central1)
+# region = "us-central1"
+
+# OPTIONAL: Override default zone (default: us-central1-a)
+# zone = "us-central1-a"
+
+# OPTIONAL: Override default cluster name (default: hello-gke-cluster)
+# cluster_name = "hello-gke-cluster"

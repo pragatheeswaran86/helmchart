@@ -1,0 +1,45 @@
+# Default values for hello-app Helm chart
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Number of replicas for the deployment
+replicaCount: 3
+
+# Container image configuration
+image:
+  repository: nginx
+  tag: "1.25-alpine"
+  pullPolicy: IfNotPresent
+
+# Service configuration
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 80
+
+# Resource limits and requests (best practice)
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+# Pod labels
+labels:
+  app: hello-app
+  environment: demo
+  managed-by: helm
+
+# Pod annotations
+annotations: {}
+
+# Node selector
+nodeSelector: {}
+
+# Tolerations
+tolerations: []
+
+# Affinity rules
+affinity: {}

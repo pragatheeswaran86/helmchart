@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="gke-hello-world-with-terraform-and-helm">GKE Hello World with Terraform and Helm</h1>
+<p>This project demonstrates production-quality infrastructure as code (IaC) practices for deploying a simple Hello World application to Google Kubernetes Engine (GKE) using Terraform and Helm.</p>
+<h2 id="%F0%9F%8F%97%EF%B8%8F-architecture-overview">🏗️ Architecture Overview</h2>
+<pre class="hljs"><code><div>┌─────────────────────────────────────────────────────────────┐
+│                       Google Cloud Platform                  │
+│                                                              │
+│  ┌────────────────────────────────────────────────────┐    │
+│  │              GKE Cluster (Zonal)                   │    │
+│  │                                                     │    │
+│  │  ┌──────────────────────────────────────────┐     │    │
+│  │  │         Node Pool (e2-medium)            │     │    │
+│  │  │                                           │     │    │
+│  │  │  ┌────────────────────────────────┐     │     │    │
+│  │  │  │  Hello-App Deployment          │     │     │    │
+│  │  │  │  (3 replicas - nginx)          │     │     │    │
+│  │  │  │  ┌──────┐ ┌──────┐ ┌──────┐  │     │     │    │
+│  │  │  │  │ Pod1 │ │ Pod2 │ │ Pod3 │  │     │     │    │
+│  │  │  │  └──────┘ └──────┘ └──────┘  │     │     │    │
+│  │  │  └────────────────────────────────┘     │     │    │
+│  │  │                 ▲                        │     │    │
+│  │  │                 │                        │     │    │
+│  │  │  ┌──────────────┴───────────────┐      │     │    │
+│  │  │  │  LoadBalancer Service         │      │     │    │
+│  │  │  │  (Port 80)                    │      │     │    │
+│  │  │  └──────────────┬───────────────┘      │     │    │
+│  │  └─────────────────┼────────────────────────┘     │    │
+│  └────────────────────┼──────────────────────────────┘    │
+│                       │                                    │
+│         ┌─────────────┴──────────────┐                    │
+│         │  External LoadBalancer IP   │                    │
+│         │  (Public Internet Access)   │                    │
+│         └─────────────┬──────────────┘                    │
+└───────────────────────┼───────────────────────────────────┘
+                        │
+                        ▼
+                   🌐 Internet
+</div></code></pre>
+<h2 id="%F0%9F%9A%80-deployment-flow">🚀 Deployment Flow</h2>
+<pre class="hljs"><code><div>Terraform Init
+     │
+     ▼
+Terraform Plan
+     │
+     ▼
+Create GKE Cluster ──► Create Node Pool
+     │                       │
+     ▼                       ▼
+Configure Kubernetes ──► Configure Helm Provider
+     │                       │
+     ▼                       ▼
+Deploy Helm Chart ──────► Create Deployment (3 Pods)
+                            │
+                            ▼
+                     Create LoadBalancer Service
+                            │
+                            ▼
+                     Assign External IP
+                            │
+                            ▼
+                     Application Ready! 🎉
+</div></code></pre>
+<h2 id="%F0%9F%93%81-project-structure">📁 Project Structure</h2>
+<pre class="hljs"><code><div>project/
+├── README.md
+├── .gitignore
+├── terraform/
+│   ├── provider.tf      # Provider configurations (GCP, Kubernetes, Helm)
+│   ├── main.tf          # GKE cluster and node pool resources
+│   ├── helm.tf          # Helm release configuration
+│   └── outputs.tf       # Terraform outputs
+│
+└── hello-chart/
+    ├── Chart.yaml       # Helm chart metadata
+    ├── values.yaml      # Default configuration values
+    └── templates/
+        ├── deployment.yaml  # Kubernetes deployment template
+        └── service.yaml     # Kubernetes service template
+</div></code></pre>
+<h2 id="%F0%9F%93%8B-prerequisites">📋 Prerequisites</h2>
+<p>Before you begin, ensure you have the following installed and configured:</p>
+<ol>
+<li>
+<p><strong>Google Cloud SDK (gcloud)</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Install gcloud CLI</span>
+curl https://sdk.cloud.google.com | bash
+<span class="hljs-built_in">exec</span> -l <span class="hljs-variable">$SHELL</span>
+
+<span class="hljs-comment"># Initialize and authenticate</span>
+gcloud init
+gcloud auth application-default login
+</div></code></pre>
+</li>
+<li>
+<p><strong>Terraform</strong> (&gt;= 1.0)</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># macOS</span>
+brew install terraform
+
+<span class="hljs-comment"># Linux</span>
+wget https://releases.hashicorp.com/terraform/1.6.0/terraform_1.6.0_linux_amd64.zip
+unzip terraform_1.6.0_linux_amd64.zip
+sudo mv terraform /usr/<span class="hljs-built_in">local</span>/bin/
+</div></code></pre>
+</li>
+<li>
+<p><strong>kubectl</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># macOS</span>
+brew install kubectl
+
+<span class="hljs-comment"># Linux</span>
+gcloud components install kubectl
+</div></code></pre>
+</li>
+<li>
+<p><strong>Helm</strong> (&gt;= 3.0)</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># macOS</span>
+brew install helm
+
+<span class="hljs-comment"># Linux</span>
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+</div></code></pre>
+</li>
+<li>
+<p><strong>GCP Project Setup</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Set your project ID</span>
+<span class="hljs-built_in">export</span> PROJECT_ID=<span class="hljs-string">"your-gcp-project-id"</span>
+gcloud config <span class="hljs-built_in">set</span> project <span class="hljs-variable">$PROJECT_ID</span>
+
+<span class="hljs-comment"># Enable required APIs</span>
+gcloud services <span class="hljs-built_in">enable</span> container.googleapis.com
+gcloud services <span class="hljs-built_in">enable</span> compute.googleapis.com
+</div></code></pre>
+</li>
+</ol>
+<h2 id="%F0%9F%94%A7-configuration">🔧 Configuration</h2>
+<ol>
+<li>
+<p><strong>Set your GCP Project ID</strong></p>
+<p>Create a <code>terraform.tfvars</code> file in the <code>terraform/</code> directory:</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">cd</span> terraform
+cat &gt; terraform.tfvars &lt;&lt;EOF
+project_id   = <span class="hljs-string">"your-gcp-project-id"</span>
+region       = <span class="hljs-string">"us-central1"</span>
+zone         = <span class="hljs-string">"us-central1-a"</span>
+cluster_name = <span class="hljs-string">"hello-gke-cluster"</span>
+EOF
+</div></code></pre>
+<p><strong>Or</strong> set the project ID via environment variable:</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">export</span> TF_VAR_project_id=<span class="hljs-string">"your-gcp-project-id"</span>
+</div></code></pre>
+</li>
+</ol>
+<h2 id="%F0%9F%9A%A2-deployment-steps">🚢 Deployment Steps</h2>
+<h3 id="step-1-initialize-terraform">Step 1: Initialize Terraform</h3>
+<pre class="hljs"><code><div><span class="hljs-built_in">cd</span> terraform
+terraform init
+</div></code></pre>
+<p><strong>Expected output:</strong></p>
+<pre class="hljs"><code><div>Initializing the backend...
+Initializing provider plugins...
+- Finding hashicorp/google versions matching &quot;~&gt; 5.0&quot;...
+- Finding hashicorp/kubernetes versions matching &quot;~&gt; 2.23&quot;...
+- Finding hashicorp/helm versions matching &quot;~&gt; 2.11&quot;...
+
+Terraform has been successfully initialized!
+</div></code></pre>
+<h3 id="step-2-review-the-execution-plan">Step 2: Review the Execution Plan</h3>
+<pre class="hljs"><code><div>terraform plan
+</div></code></pre>
+<p>This command shows you what Terraform will create:</p>
+<ul>
+<li>GKE cluster</li>
+<li>Node pool with e2-medium instances</li>
+<li>Helm release deploying the hello-app chart</li>
+</ul>
+<h3 id="step-3-apply-the-configuration">Step 3: Apply the Configuration</h3>
+<pre class="hljs"><code><div>terraform apply
+</div></code></pre>
+<p>Type <code>yes</code> when prompted to confirm.</p>
+<p><strong>⏱️ Expected Duration:</strong> 5-10 minutes</p>
+<p><strong>What happens during apply:</strong></p>
+<ol>
+<li>Creates GKE cluster (3-5 minutes)</li>
+<li>Creates node pool with auto-scaling (2-3 minutes)</li>
+<li>Configures Kubernetes and Helm providers</li>
+<li>Deploys Helm chart with 3 nginx replicas</li>
+<li>Creates LoadBalancer service</li>
+<li>GCP assigns external IP address</li>
+</ol>
+<h3 id="step-4-retrieve-terraform-outputs">Step 4: Retrieve Terraform Outputs</h3>
+<pre class="hljs"><code><div>terraform output
+</div></code></pre>
+<p><strong>Example output:</strong></p>
+<pre class="hljs"><code><div>cluster_name                  = &quot;hello-gke-cluster&quot;
+configure_kubectl_command     = &quot;gcloud container clusters get-credentials hello-gke-cluster --zone=us-central1-a --project=your-project-id&quot;
+get_loadbalancer_ip_command   = &quot;kubectl get service hello-app -o jsonpath='{.status.loadBalancer.ingress[0].ip}'&quot;
+get_pods_command              = &quot;kubectl get pods -l app=hello-app&quot;
+get_service_command           = &quot;kubectl get service hello-app&quot;
+helm_release_status           = &quot;deployed&quot;
+helm_release_version          = &quot;1&quot;
+</div></code></pre>
+<h2 id="%F0%9F%94%8D-verification-steps">🔍 Verification Steps</h2>
+<h3 id="1-configure-kubectl">1. Configure kubectl</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Use the command from terraform output</span>
+gcloud container clusters get-credentials hello-gke-cluster --zone=us-central1<span class="hljs-_">-a</span> --project=your-project-id
+</div></code></pre>
+<h3 id="2-verify-pods-are-running">2. Verify Pods are Running</h3>
+<pre class="hljs"><code><div>kubectl get pods -l app=hello-app
+</div></code></pre>
+<p><strong>Expected output:</strong></p>
+<pre class="hljs"><code><div>NAME                         READY   STATUS    RESTARTS   AGE
+hello-app-xxxxxxxxx-xxxxx    1/1     Running   0          2m
+hello-app-xxxxxxxxx-xxxxx    1/1     Running   0          2m
+hello-app-xxxxxxxxx-xxxxx    1/1     Running   0          2m
+</div></code></pre>
+<h3 id="3-check-service-status">3. Check Service Status</h3>
+<pre class="hljs"><code><div>kubectl get service hello-app
+</div></code></pre>
+<p><strong>Expected output:</strong></p>
+<pre class="hljs"><code><div>NAME        TYPE           CLUSTER-IP      EXTERNAL-IP      PORT(S)        AGE
+hello-app   LoadBalancer   10.xx.xxx.xxx   34.xx.xxx.xxx    80:xxxxx/TCP   3m
+</div></code></pre>
+<p><strong>Note:</strong> It may take 1-2 minutes for the EXTERNAL-IP to be assigned.</p>
+<h3 id="4-get-the-loadbalancer-ip">4. Get the LoadBalancer IP</h3>
+<pre class="hljs"><code><div>kubectl get service hello-app -o jsonpath=<span class="hljs-string">'{.status.loadBalancer.ingress[0].ip}'</span>
+</div></code></pre>
+<p><strong>Or use the simplified command:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-built_in">export</span> EXTERNAL_IP=$(kubectl get service hello-app -o jsonpath=<span class="hljs-string">'{.status.loadBalancer.ingress[0].ip}'</span>)
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"Application URL: http://<span class="hljs-variable">$EXTERNAL_IP</span>"</span>
+</div></code></pre>
+<h3 id="5-test-the-application">5. Test the Application</h3>
+<pre class="hljs"><code><div>curl http://<span class="hljs-variable">$EXTERNAL_IP</span>
+</div></code></pre>
+<p><strong>Or</strong> open in your browser:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># macOS</span>
+open <span class="hljs-string">"http://<span class="hljs-variable">$EXTERNAL_IP</span>"</span>
+
+<span class="hljs-comment"># Linux</span>
+xdg-open <span class="hljs-string">"http://<span class="hljs-variable">$EXTERNAL_IP</span>"</span>
+</div></code></pre>
+<p>You should see the default Nginx welcome page! 🎉</p>
+<h2 id="%F0%9F%93%8A-monitoring-and-management">📊 Monitoring and Management</h2>
+<h3 id="view-deployment-details">View Deployment Details</h3>
+<pre class="hljs"><code><div>kubectl describe deployment hello-app
+</div></code></pre>
+<h3 id="view-logs">View Logs</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Logs from all pods</span>
+kubectl logs -l app=hello-app
+
+<span class="hljs-comment"># Logs from a specific pod</span>
+kubectl logs &lt;pod-name&gt;
+
+<span class="hljs-comment"># Follow logs in real-time</span>
+kubectl logs -f -l app=hello-app
+</div></code></pre>
+<h3 id="scale-the-deployment">Scale the Deployment</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Scale to 5 replicas</span>
+kubectl scale deployment hello-app --replicas=5
+
+<span class="hljs-comment"># Verify scaling</span>
+kubectl get pods -l app=hello-app
+</div></code></pre>
+<h3 id="check-helm-release">Check Helm Release</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># List Helm releases</span>
+helm list
+
+<span class="hljs-comment"># Get release details</span>
+helm status hello-app
+
+<span class="hljs-comment"># View release history</span>
+helm <span class="hljs-built_in">history</span> hello-app
+</div></code></pre>
+<h3 id="access-gke-dashboard">Access GKE Dashboard</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Open GKE cluster in Cloud Console</span>
+gcloud container clusters describe hello-gke-cluster --zone=us-central1<span class="hljs-_">-a</span>
+</div></code></pre>
+<h2 id="%F0%9F%94%A7-customization">🔧 Customization</h2>
+<h3 id="change-number-of-replicas">Change Number of Replicas</h3>
+<p><strong>Option 1: Update Terraform</strong></p>
+<p>Edit <code>terraform/helm.tf</code>:</p>
+<pre class="hljs"><code><div>set {
+  name  = &quot;replicaCount&quot;
+  value = 5  # Change from 3 to 5
+}
+</div></code></pre>
+<p>Then apply:</p>
+<pre class="hljs"><code><div>terraform apply
+</div></code></pre>
+<p><strong>Option 2: Update Helm Values</strong></p>
+<p>Edit <code>hello-chart/values.yaml</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-attr">replicaCount:</span> <span class="hljs-number">5</span>
+</div></code></pre>
+<p>Then upgrade:</p>
+<pre class="hljs"><code><div>helm upgrade hello-app ../hello-chart
+</div></code></pre>
+<h3 id="use-a-different-container-image">Use a Different Container Image</h3>
+<p>Edit <code>hello-chart/values.yaml</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-attr">image:</span>
+  <span class="hljs-attr">repository:</span> <span class="hljs-string">gcr.io/google-samples/hello-app</span>
+  <span class="hljs-attr">tag:</span> <span class="hljs-string">"1.0"</span>
+</div></code></pre>
+<p>Apply changes:</p>
+<pre class="hljs"><code><div>terraform apply
+</div></code></pre>
+<h3 id="add-custom-html-content">Add Custom HTML Content</h3>
+<p>Create a ConfigMap with custom content:</p>
+<pre class="hljs"><code><div>kubectl create configmap nginx-content --from-literal=index.html=<span class="hljs-string">"&lt;h1&gt;Hello from GKE!&lt;/h1&gt;"</span>
+</div></code></pre>
+<p>Update the deployment to mount it (requires chart modification).</p>
+<h2 id="%F0%9F%A7%B9-cleanup">🧹 Cleanup</h2>
+<h3 id="destroy-all-resources">Destroy All Resources</h3>
+<pre class="hljs"><code><div><span class="hljs-built_in">cd</span> terraform
+terraform destroy
+</div></code></pre>
+<p>Type <code>yes</code> when prompted.</p>
+<p><strong>What gets deleted:</strong></p>
+<ul>
+<li>Helm release</li>
+<li>Kubernetes resources (Deployment, Service, Pods)</li>
+<li>Node pool</li>
+<li>GKE cluster</li>
+<li>LoadBalancer (and external IP)</li>
+</ul>
+<p><strong>⏱️ Duration:</strong> 5-10 minutes</p>
+<p><strong>💰 Cost Note:</strong> This prevents ongoing GCP charges!</p>
+<h3 id="verify-cleanup">Verify Cleanup</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Check if cluster is deleted</span>
+gcloud container clusters list
+
+<span class="hljs-comment"># Check if LoadBalancer is deleted</span>
+gcloud compute forwarding-rules list
+</div></code></pre>
+<h2 id="%F0%9F%92%A1-best-practices-implemented">💡 Best Practices Implemented</h2>
+<p>✅ <strong>Infrastructure as Code</strong>: All infrastructure defined in Terraform
+✅ <strong>Immutable Deployments</strong>: Using Helm for version-controlled releases
+✅ <strong>Separation of Concerns</strong>: Terraform manages infrastructure, Helm manages applications
+✅ <strong>Resource Management</strong>: CPU/Memory limits and requests defined
+✅ <strong>Health Checks</strong>: Liveness and readiness probes configured
+✅ <strong>Auto-scaling</strong>: Node pool auto-scaling enabled (1-3 nodes)
+✅ <strong>Auto-healing</strong>: Node auto-repair enabled
+✅ <strong>Security</strong>: Workload Identity enabled, legacy endpoints disabled
+✅ <strong>High Availability</strong>: 3 replicas for redundancy
+✅ <strong>Proper Dependencies</strong>: Helm deployment waits for node pool creation</p>
+<h2 id="%F0%9F%94%8D-troubleshooting">🔍 Troubleshooting</h2>
+<h3 id="issue-terraform-fails-with-authentication-error">Issue: Terraform fails with authentication error</h3>
+<p><strong>Solution:</strong></p>
+<pre class="hljs"><code><div>gcloud auth application-default login
+gcloud config <span class="hljs-built_in">set</span> project your-project-id
+</div></code></pre>
+<h3 id="issue-loadbalancer-stuck-in-%22pending%22">Issue: LoadBalancer stuck in &quot;Pending&quot;</h3>
+<p><strong>Check:</strong></p>
+<pre class="hljs"><code><div>kubectl describe service hello-app
+</div></code></pre>
+<p><strong>Common causes:</strong></p>
+<ul>
+<li>Insufficient GCP quotas</li>
+<li>Network firewall rules</li>
+<li>Wait 2-3 minutes for IP assignment</li>
+</ul>
+<h3 id="issue-pods-not-starting">Issue: Pods not starting</h3>
+<p><strong>Check pod status:</strong></p>
+<pre class="hljs"><code><div>kubectl describe pod &lt;pod-name&gt;
+kubectl logs &lt;pod-name&gt;
+</div></code></pre>
+<p><strong>Common causes:</strong></p>
+<ul>
+<li>Image pull errors</li>
+<li>Resource constraints</li>
+<li>Node not ready</li>
+</ul>
+<h3 id="issue-cannot-connect-to-external-ip">Issue: Cannot connect to external IP</h3>
+<p><strong>Check firewall rules:</strong></p>
+<pre class="hljs"><code><div>gcloud compute firewall-rules list
+</div></code></pre>
+<p><strong>Test from Cloud Shell:</strong></p>
+<pre class="hljs"><code><div>curl http://<span class="hljs-variable">$EXTERNAL_IP</span>
+</div></code></pre>
+<h3 id="issue-helm-chart-not-found">Issue: Helm chart not found</h3>
+<p><strong>Verify path:</strong></p>
+<pre class="hljs"><code><div>ls -la ../hello-chart
+</div></code></pre>
+<p>Make sure you're running Terraform from the <code>terraform/</code> directory.</p>
+<h2 id="%F0%9F%93%9A-additional-resources">📚 Additional Resources</h2>
+<ul>
+<li><a href="https://cloud.google.com/kubernetes-engine/docs">GKE Documentation</a></li>
+<li><a href="https://registry.terraform.io/providers/hashicorp/google/latest/docs">Terraform GCP Provider</a></li>
+<li><a href="https://helm.sh/docs/">Helm Documentation</a></li>
+<li><a href="https://kubernetes.io/docs/">Kubernetes Documentation</a></li>
+</ul>
+<h2 id="%F0%9F%8E%93-understanding-the-components">🎓 Understanding the Components</h2>
+<h3 id="terraform-components">Terraform Components</h3>
+<ul>
+<li><strong>provider.tf</strong>: Configures GCP, Kubernetes, and Helm providers with proper authentication</li>
+<li><strong>main.tf</strong>: Defines GKE cluster and node pool resources</li>
+<li><strong>helm.tf</strong>: Deploys the Helm chart using the <code>helm_release</code> resource</li>
+<li><strong>outputs.tf</strong>: Exports useful information and commands</li>
+</ul>
+<h3 id="helm-chart-components">Helm Chart Components</h3>
+<ul>
+<li><strong>Chart.yaml</strong>: Metadata about the Helm chart (name, version, description)</li>
+<li><strong>values.yaml</strong>: Default configuration values (replicas, image, service type)</li>
+<li><strong>templates/deployment.yaml</strong>: Kubernetes Deployment template with Go templating</li>
+<li><strong>templates/service.yaml</strong>: Kubernetes Service template (LoadBalancer type)</li>
+</ul>
+<h3 id="kubernetes-resources-created">Kubernetes Resources Created</h3>
+<ol>
+<li><strong>Deployment</strong>: Manages 3 replica pods running nginx</li>
+<li><strong>Service</strong>: LoadBalancer type, exposes pods on port 80</li>
+<li><strong>Pods</strong>: Individual instances of the nginx container</li>
+</ol>
+<h2 id="%F0%9F%94%90-security-considerations">🔐 Security Considerations</h2>
+<p>For production use, consider:</p>
+<ol>
+<li><strong>Private GKE Cluster</strong>: Enable private nodes and master</li>
+<li><strong>Network Policies</strong>: Restrict pod-to-pod communication</li>
+<li><strong>Workload Identity</strong>: Already enabled for pod authentication</li>
+<li><strong>Binary Authorization</strong>: Enforce container image signatures</li>
+<li><strong>Pod Security Policies</strong>: Enforce security standards</li>
+<li><strong>HTTPS/TLS</strong>: Use Ingress with SSL certificates</li>
+<li><strong>Secret Management</strong>: Use Google Secret Manager</li>
+<li><strong>RBAC</strong>: Implement role-based access control</li>
+</ol>
+<h2 id="%F0%9F%93%9D-license">📝 License</h2>
+<p>This project is provided as-is for educational and demonstration purposes.</p>
+<hr>
+<p><strong>Built with ❤️ by DevOps Team</strong></p>
+
+</body>
+</html>

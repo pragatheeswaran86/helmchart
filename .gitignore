@@ -1,0 +1,49 @@
+# Terraform Files
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform/
+.terraform.lock.hcl
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# Helm Files
+*.tgz
+charts/*/charts
+
+# Kubernetes
+kubeconfig
+*.kubeconfig
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS Files
+Thumbs.db
+*.log
+
+# Backup Files
+*.bak
+*.backup
+
+# Environment Files
+.env
+.env.local
+.env.*.local
+
+# Credentials
+*credentials*.json
+*.pem
+*.key
+service-account*.json
